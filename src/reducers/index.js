@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 import addTodo from "./todo-reducers";
-import userData from "./user-reducers";
+import listReducer from "./user-reducers";
 const allReducers = combineReducers({
   todoList: addTodo,
-  userList: userData
+  userList: listReducer("UserData"),
+  colorList: listReducer("ColorList")
 });
 
 export default allReducers;

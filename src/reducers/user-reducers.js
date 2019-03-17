@@ -10,27 +10,30 @@ const INITIAL_STATE = {
   items: [],
   error: null
 };
-const getUser = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case REQUEST_INIT:
-      return { ...state, isLoading: true, isCompleted: false };
-    case REQUEST_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        isCompleted: true,
-        items: action.payload
-      };
-    case REQUEST_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        isCompleted: true,
-        error: action.payload
-      };
-    default:
-      return state;
-  }
+
+const listReducer = listName => {
+  return (state = INITIAL_STATE, action) => {
+    switch (action.type) {
+      case `REQUEST_INIT_${listName}`:
+        return { ...state, isLoading: true, isCompleted: false };
+      case `REQUEST_SUCCESS_${listName}`:
+        return {
+          ...state,
+          isLoading: false,
+          isCompleted: true,
+          items: action.payload
+        };
+      case `REQUEST_FAILURE_${listName}`:
+        return {
+          ...state,
+          isLoading: false,
+          isCompleted: true,
+          error: action.payload
+        };
+      default:
+        return state;
+    }
+  };
 };
 
-export default getUser;
+export default listReducer;

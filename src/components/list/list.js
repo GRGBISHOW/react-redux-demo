@@ -13,8 +13,8 @@ const ListItem = props => {
   console.log(props);
   return props.list.items.map((item, index) => {
     return (
-      <ListGroupItem key={index} tag="a" href="#" action>
-        {item.title}
+      <ListGroupItem color={item.color} key={index} tag="a" href="#" action>
+        {item.title || item.name}
       </ListGroupItem>
     );
   });
