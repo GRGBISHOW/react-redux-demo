@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addTodo } from "../../actions/index";
 import { List } from "../../components/list/list";
 import { InputForm } from "../../components/inputForm/inputForm";
-import { Row, Container, Col } from "reactstrap";
+import { Row, Col } from "reactstrap";
 
 class TodoContainer extends Component {
   constructor() {
@@ -42,7 +42,7 @@ class TodoContainer extends Component {
             value={this.state.title}
           />
         </Row>
-        <Row style={{ marginTop: 20 }}>
+        <Row className="mt-3">
           <List list={this.props.todoList}> </List>
         </Row>
       </Col>

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchUserData } from "../../actions/user-data";
 import { CardList } from "../../components/card/card-list";
 
-import { Col } from "reactstrap";
+import { Col, Spinner, Row, Button } from "reactstrap";
 
 class UserList extends Component {
   constructor() {
@@ -19,9 +19,20 @@ class UserList extends Component {
 
   render() {
     return (
-      <Col xs="3">
+      <Col className="ml-5" xs="3">
         <h1>Async Call</h1>
-        <CardList list={this.props.userList} />
+        <Button
+          color="primary"
+          className="float-right ml-2"
+          onClick={this.props.fetchUserData}
+        >
+          Reload
+        </Button>
+        {this.props.isLoading ? (
+          <Spinner type="grow" color="primary" />
+        ) : (
+          <CardList list={this.props.userList} />
+        )}
       </Col>
     );
   }
