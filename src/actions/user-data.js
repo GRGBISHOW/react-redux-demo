@@ -9,16 +9,34 @@ export const initRequest = () => {
   };
 };
 
-export const recieveResponse = response => {
+export const requestSuccess = response => {
   return {
     type: REQUEST_SUCCESS,
     payload: response
   };
 };
 
-export const parseError = err => {
+export const requestFailure = err => {
   return {
     type: REQUEST_FAILURE,
     payload: err
   };
 };
+
+export const fetchUserData = () => {
+  return dispatch => {
+    dispatch(initRequest());
+    fetch("https://reqres.in/api/users?page=2")
+      .then(handleErrors)
+      .then(response => response.json())
+      .then(r => dispatch(requestSuccess(r.data)))
+      .catch(err => dispatch(requestFailure(err)));
+  };
+};
+
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}

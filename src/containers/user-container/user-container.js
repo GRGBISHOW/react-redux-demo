@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  initRequest,
-  recieveResponse,
-  parseError
-} from "../../actions/user-data";
+import { fetchUserData } from "../../actions/user-data";
 import { CardList } from "../../components/card/card-list";
 
 import { Col } from "reactstrap";
@@ -18,17 +14,7 @@ class UserList extends Component {
   }
   componentDidMount() {
     console.log("componentDidMount");
-    this.props.initRequest();
-    fetch("https://reqres.in/api/users?page=2")
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response;
-      })
-      .then(response => response.json())
-      .then(r => this.props.recieveResponse(r.data))
-      .catch(er => this.props.parseError(true));
+    this.props.fetchUserData();
   }
 
   render() {
@@ -52,9 +38,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    initRequest: () => dispatch(initRequest()),
-    recieveResponse: userList => dispatch(recieveResponse(userList)),
-    parseError: error => dispatch(parseError(error))
+    fetchUserData: () => dispatch(fetchUserData())
   };
 }
 export default connect(
